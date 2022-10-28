@@ -1,16 +1,12 @@
 ﻿using Xunit;
 using System.Collections.Generic;
 using GildedRoseKata;
+using GildedRoseKata.Constants;
 
 namespace GildedRoseTests
 {
     public class GildedRoseTests
     {
-        private const string _agedBrie = "Aged Brie";
-        private const string _backStagePass = "Backstage passes to a TAFKAL80ETC concert";
-        private const string _defaultName = "nonSpecialName";
-        private const string _sulfuras = "Sulfuras, Hand of Ragnaros";
-
         #region aged Brie
 
 
@@ -18,7 +14,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldIncreaseQualityBy1_WhenNameIsAgedBrie_AndQualityLessThan50_AndSellINotPassed()
         {
             // Arrange
-            string expectedName = _agedBrie;
+            string expectedName = ItemNames.AgedBrie;
             int sellIn = 10;
             int quality= 25;
             int expectedQuality = 26;
@@ -37,7 +33,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldIncreaseQualityBy2_WhenNameIsAgedBrie_AndQualityLessthan49_AndSellIPassed()
         {
             // Arrange
-            string expectedName = _agedBrie;
+            string expectedName = ItemNames.AgedBrie;
             int sellIn = 0;
             int quality = 48;
             int expectedQuality = 50;
@@ -56,7 +52,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldIncreaseQualityBy1_WhenNameIsAgedBrie_AndQualityIs49_AndSellIPassed()
         {
             // Arrange
-            string expectedName = _agedBrie;
+            string expectedName = ItemNames.AgedBrie;
             int sellIn = 0;
             int quality = 49;
             int expectedQuality = 50;
@@ -75,7 +71,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldNotIncreaseQuality_WhenNameIsAgedBrie_AndQualityIs50()
         {
             // Arrange
-            string expectedName = _agedBrie;
+            string expectedName = ItemNames.AgedBrie;
             int sellIn = 15;
             int quality = 50;
             int expectedQuality = 50;
@@ -98,7 +94,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDecreaseQualityBy1_WhenNameIsDefault_AndQualityGreaterThan0_AndSellINotPassed()
         {
             // Arrange
-            string expectedName = _defaultName;
+            string expectedName = ItemNames.DefaultName;
             int sellIn = 10;
             int quality = 25;
             int expectedQuality = 24;
@@ -117,7 +113,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDecreaseQualityBy2_WhenNameIsDefault_AndQualityGreaterThan1_AndSellIPassed()
         {
             // Arrange
-            string expectedName = _defaultName;
+            string expectedName = ItemNames.DefaultName;
             int sellIn = 0;
             int quality = 25;
             int expectedQuality = 23;
@@ -136,7 +132,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDecreaseQualityBy1_WhenNameIsDefault_AndQualityis1_AndSellInPassed()
         {
             // Arrange
-            string expectedName = _defaultName;
+            string expectedName = ItemNames.DefaultName;
             int sellIn = 0;
             int quality = 1;
             int expectedQuality = 0;
@@ -155,7 +151,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldNotDecreaseQuality_WhenNameIsDefault_AndQualityis0_AndSellInPassed()
         {
             // Arrange
-            string expectedName = _defaultName;
+            string expectedName = ItemNames.DefaultName;
             int sellIn = 0;
             int quality = 0;
             int expectedQuality = 0;
@@ -177,7 +173,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldIncreaseQualityBy1_WhenNameIsBackstagePass_AndQualityLessThan50_AndSellGreaterThan10()
         {
             // Arrange
-            string expectedName = _backStagePass;
+            string expectedName = ItemNames.BackStagePass;
             int sellIn = 11;
             int quality = 25;
             int expectedQuality = 26;
@@ -196,7 +192,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldIncreaseQualityBy2_WhenNameIsBackstagePass_AndQualityLessThan48_AndSellBetween10And6()
         {
             // Arrange
-            string expectedName = _backStagePass;
+            string expectedName = ItemNames.BackStagePass;
             int sellIn = 10;
             int quality = 25;
             int expectedQuality = 27;
@@ -215,7 +211,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldIncreaseQualityBy3_WhenNameIsBackstagePass_AndQualityLessthan47_AndSellInBetween5And1()
         {
             // Arrange
-            string expectedName = _backStagePass;
+            string expectedName = ItemNames.BackStagePass;
             int sellIn = 5;
             int quality = 47;
             int expectedQuality = 50;
@@ -234,7 +230,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDropQualityTo0_WhenNameIsBackStagePass_AndSellIPassed()
         {
             // Arrange
-            string expectedName = _backStagePass;
+            string expectedName = ItemNames.BackStagePass;
             int sellIn = 0;
             int quality = 25;
             int expectedQuality = 0;
@@ -253,7 +249,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldNotIncreaseQuality_WhenNameIsBackStagePass_AndQualityIs50()
         {
             // Arrange
-            string expectedName = _backStagePass;
+            string expectedName = ItemNames.BackStagePass;
             int sellIn = 25;
             int quality = 50;
             int expectedQuality = 50;
@@ -276,7 +272,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldNotChangeQuality_WhenNameIsSulfuras()
         {
             // Arrange
-            string expectedName = _sulfuras;
+            string expectedName = ItemNames.Sulfuras;
             int sellIn = 25;
             int quality = 80;
             int expectedQuality = 80;
@@ -295,10 +291,11 @@ namespace GildedRoseTests
         #region SellIn
 
         [Theory]
-        [InlineData(_agedBrie, 25, 24)]
-        [InlineData(_backStagePass, 25, 24)]
-        [InlineData(_defaultName, 25, 24)]
-        [InlineData(_sulfuras, 25, 25)]
+        [InlineData(ItemNames.AgedBrie, 25, 24)]
+
+        [InlineData(ItemNames.BackStagePass, 25, 24)]
+        [InlineData(ItemNames.DefaultName, 25, 24)]
+        [InlineData(ItemNames.Sulfuras, 25, 25)]
         public void UpdateQuality_ShouldDecreaseSellin_WhenNameIsNotSulfuras(string name, int sellIn, int expectedSellIn)
         {
             // Arrange
