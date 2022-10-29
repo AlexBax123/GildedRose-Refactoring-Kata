@@ -1,4 +1,4 @@
-﻿using GildedRoseKata.Constants;
+﻿using GildedRoseKata.ItemProvider;
 using System.Collections.Generic;
 
 namespace GildedRoseKata
@@ -6,9 +6,12 @@ namespace GildedRoseKata
     public class GildedRose
     {
         IList<Item> Items;
+        private readonly ItemQualityProviderFactory _itemQualityProviderFactory;
+
         public GildedRose(IList<Item> Items)
         {
             this.Items = Items;
+            _itemQualityProviderFactory = new ItemQualityProviderFactory();
         }
 
         public void UpdateQuality()
@@ -16,76 +19,17 @@ namespace GildedRoseKata
             for (var i = 0; i < Items.Count; i++)
             {
                 var item = Items[i];
-                if (item.Name != ItemNames.AgedBrie && item.Name != ItemNames.BackStagePass)
-                {
-                    if (item.Quality > 0)
-                    {
-                        if (item.Name != ItemNames.Sulfuras)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-
-                        if (item.Name == ItemNames.BackStagePass)
-                        {
-                            if (item.SellIn < 11)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-
-                            if (item.SellIn < 6)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (item.Name != ItemNames.Sulfuras)
-                {
-                    item.SellIn = item.SellIn - 1;
-                }
-
-                if (item.SellIn < 0)
-                {
-                    if (item.Name != ItemNames.AgedBrie)
-                    {
-                        if (item.Name != ItemNames.BackStagePass)
-                        {
-                            if (item.Quality > 0)
-                            {
-                                if (item.Name != ItemNames.Sulfuras)
-                                {
-                                    item.Quality = item.Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            item.Quality = item.Quality - item.Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
-                }
+                UpdateQuality(item);
             }
+        }
+
+        private void UpdateQuality(Item item)
+        {
+            IItemQualityProvider provider = _itemQualityProviderFactory.GetItemQualityProvider(item.Name);
+            var quality = provider.GetQuality(item.Quality,item.SellIn);
+            var sellIn = provider.GetSellIn(item.SellIn);
+            item.Quality = quality;
+            item.SellIn = sellIn;
         }
     }
 }
