@@ -94,7 +94,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDecreaseQualityBy1_WhenNameIsDefault_AndQualityGreaterThan0_AndSellINotPassed()
         {
             // Arrange
-            string expectedName = ItemNames.DefaultName;
+            string expectedName = "WhateverItemName";
             int sellIn = 10;
             int quality = 25;
             int expectedQuality = 24;
@@ -113,7 +113,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDecreaseQualityBy2_WhenNameIsDefault_AndQualityGreaterThan1_AndSellIPassed()
         {
             // Arrange
-            string expectedName = ItemNames.DefaultName;
+            string expectedName = "WhateverItemName";
             int sellIn = 0;
             int quality = 25;
             int expectedQuality = 23;
@@ -132,7 +132,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldDecreaseQualityBy1_WhenNameIsDefault_AndQualityis1_AndSellInPassed()
         {
             // Arrange
-            string expectedName = ItemNames.DefaultName;
+            string expectedName = "WhateverItemName";
             int sellIn = 0;
             int quality = 1;
             int expectedQuality = 0;
@@ -151,7 +151,7 @@ namespace GildedRoseTests
         public void UpdateQuality_ShouldNotDecreaseQuality_WhenNameIsDefault_AndQualityis0_AndSellInPassed()
         {
             // Arrange
-            string expectedName = ItemNames.DefaultName;
+            string expectedName = "WhateverItemName";
             int sellIn = 0;
             int quality = 0;
             int expectedQuality = 0;
@@ -292,9 +292,8 @@ namespace GildedRoseTests
 
         [Theory]
         [InlineData(ItemNames.AgedBrie, 25, 24)]
-
         [InlineData(ItemNames.BackStagePass, 25, 24)]
-        [InlineData(ItemNames.DefaultName, 25, 24)]
+        [InlineData("whatever", 25, 24)]
         [InlineData(ItemNames.Sulfuras, 25, 25)]
         public void UpdateQuality_ShouldDecreaseSellin_WhenNameIsNotSulfuras(string name, int sellIn, int expectedSellIn)
         {
