@@ -1,9 +1,5 @@
 ﻿using GildedRoseKata.Constants;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GildedRoseKata.ItemProvider
 {
@@ -16,12 +12,14 @@ namespace GildedRoseKata.ItemProvider
             var itemProviders = new Dictionary<string, IItemQualityProvider>();
             var agedBrieItemChangeProvider = new AgedBrieItemQualityChangeProvider();
             itemProviders.Add(agedBrieItemChangeProvider.Name, agedBrieItemChangeProvider);
-            var BackStagePassItemChangeProvider = new BackStagePassItemQualityChangeProvider();
-            itemProviders.Add(BackStagePassItemChangeProvider.Name, BackStagePassItemChangeProvider);
-            var DefaultItemChangeProvider = new DefaultItemQualityChangeProvider();
-            itemProviders.Add(DefaultItemChangeProvider.Name, DefaultItemChangeProvider);
-            var SulfurasItemChangeProvider = new SulfurasItemQualityChangeProvider();
-            itemProviders.Add(SulfurasItemChangeProvider.Name, SulfurasItemChangeProvider);
+            var backStagePassItemChangeProvider = new BackStagePassItemQualityChangeProvider();
+            itemProviders.Add(backStagePassItemChangeProvider.Name, backStagePassItemChangeProvider);
+            var defaultItemChangeProvider = new DefaultItemQualityChangeProvider();
+            itemProviders.Add(defaultItemChangeProvider.Name, defaultItemChangeProvider);
+            var sulfurasItemChangeProvider = new SulfurasItemQualityChangeProvider();
+            itemProviders.Add(sulfurasItemChangeProvider.Name, sulfurasItemChangeProvider);
+            var conjuredItemQualityChangeProvider = new ConjuredItemQualityChangeProvider();
+            itemProviders.Add(conjuredItemQualityChangeProvider.Name, conjuredItemQualityChangeProvider);
             _itemProviders = itemProviders;
         }
 

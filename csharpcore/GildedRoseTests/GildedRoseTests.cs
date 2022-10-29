@@ -313,5 +313,85 @@ namespace GildedRoseTests
 
         #endregion SellIn
 
+        #region conjured product
+
+        [Theory]
+        [InlineData(25, 23)]
+        [InlineData(2, 0)]
+        public void UpdateQuality_ShouldDecreaseQualityBy2_WhenNameIsConjured_AndQualityGreaterThan1_AndSellINotPassed(int quality, int expectedQuality)
+        {
+            // Arrange
+            string expectedName = ItemNames.Conjured;
+            int sellIn = 10;
+            IList<Item> items = new List<Item> { new Item { Name = expectedName, SellIn = sellIn, Quality = quality } };
+            GildedRose app = new GildedRose(items);
+
+            // Act
+            app.UpdateQuality();
+
+            // Assert
+            Assert.Equal(expectedName, items[0].Name);
+            Assert.Equal(expectedQuality, items[0].Quality);
+        }
+
+        [Theory]
+        [InlineData(25, 21)]
+        [InlineData(4, 0)]
+        public void UpdateQuality_ShouldDecreaseQualityBy4_WhenNameIsDefault_AndQualityGreaterThan3_AndSellIPassed(int quality, int expectedQuality)
+        {
+            // Arrange
+            string expectedName = ItemNames.Conjured;
+            int sellIn = 0;
+            IList<Item> items = new List<Item> { new Item { Name = expectedName, SellIn = sellIn, Quality = quality } };
+            GildedRose app = new GildedRose(items);
+
+            // Act
+            app.UpdateQuality();
+
+            // Assert
+            Assert.Equal(expectedName, items[0].Name);
+            Assert.Equal(expectedQuality, items[0].Quality);
+        }
+
+        [Theory]
+        [InlineData(3, 0)]
+        [InlineData(2, 0)]
+        [InlineData(1, 0)]
+        public void UpdateQuality_ShouldDecreaseQualityTo0_WhenNameIsConjured_AndQualityLessThan4_AndSellInPassed(int quality, int expectedQuality)
+        {
+            // Arrange
+            string expectedName = ItemNames.Conjured;
+            int sellIn = 0;
+            IList<Item> items = new List<Item> { new Item { Name = expectedName, SellIn = sellIn, Quality = quality } };
+            GildedRose app = new GildedRose(items);
+
+            // Act
+            app.UpdateQuality();
+
+            // Assert
+            Assert.Equal(expectedName, items[0].Name);
+            Assert.Equal(expectedQuality, items[0].Quality);
+        }
+
+        [Fact]
+        public void UpdateQuality_ShouldNotDecreaseQuality_WhenNameIsConjured_AndQualityis0_AndSellInPassed()
+        {
+            // Arrange
+            string expectedName = ItemNames.Conjured;
+            int sellIn = 0;
+            int quality = 0;
+            int expectedQuality = 0;
+            IList<Item> items = new List<Item> { new Item { Name = expectedName, SellIn = sellIn, Quality = quality } };
+            GildedRose app = new GildedRose(items);
+
+            // Act
+            app.UpdateQuality();
+
+            // Assert
+            Assert.Equal(expectedName, items[0].Name);
+            Assert.Equal(expectedQuality, items[0].Quality);
+        }
+        #endregion conjured product
+
     }
 }

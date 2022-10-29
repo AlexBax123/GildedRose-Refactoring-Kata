@@ -2,9 +2,9 @@
 
 namespace GildedRoseKata.ItemProvider
 {
-    public class DefaultItemQualityChangeProvider : IItemQualityProvider
+    public class ConjuredItemQualityChangeProvider : IItemQualityProvider
     {
-        public string Name => ItemNames.DefaultName;
+        public string Name => ItemNames.Conjured;
 
         public int SellInDecrease => 1;
 
@@ -16,9 +16,9 @@ namespace GildedRoseKata.ItemProvider
 
         public int GetQuality(int quality, int sellIn)
         {
-            quality--;
+            quality -= 2;
             if (sellIn <= 0)
-                quality--;
+                quality -= 2;
             return quality < 0 ? 0 : quality;
         }
     }
